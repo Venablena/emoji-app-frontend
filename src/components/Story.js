@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Library from './Library.js'
+import '../App.css'
 
 const allEmojis = [
-        {id: 40, name: 'zombie', symbol: '🧟‍', level: 3},
+        {id: 34, name: 'kiss', symbol: '💋', level: 1},
         {id: 41, name: 'wizard', symbol: '🧙‍', level: 3},
         {id: 42, name: 'mermaid', symbol: '🧜‍♀️', level: 3},
         {id: 43, name: 'dance', symbol: '💃', level: 3},
@@ -23,27 +24,33 @@ class Story extends Component {
         points: 0,
       },
       "story": {
-        text: "The mermaid gave the wizard a kiss",
-        guesses: 0,
-        remaining: 0
+        text: "The mermaid gave the wizard a kiss"
       }
     }
   }
 
-  gameplay = () => {
-
+  gameplay = (e) => {
+    //removes an empty space at the end of the word
+    const word = e.target.innerHTML.slice(0, -1)
+    const match = this.state.user.emojis.find(el => el.name === word)
+    if(match) e.target.innerHTML = match.symbol
   }
 
   render() {
+    const array = this.state.story.text.split(" ")
+
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Welcome to Emoji Stories</h1>
         </header>
-        <div className="sidebar">
-          <Library emojis={this.state.user.emojis}/>
-        </div>
 
+        <div className="sidebar">
+          {this.state.user.emojis.map(el => <div key={el.id}>{el.symbol}</div> )}
+        </div>
+        <div className="story">
+          {array.map((el,i) => <span key={i} onClick ={(e) => this.gameplay(e)}>{el + " "}</span>)}
+        </div>
       </div>
     )
   }

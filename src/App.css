@@ -13,6 +13,12 @@
   font-size: 1.5em;
 }
 
+.story,
+.sidebar {
+  font-size: 40px;
+  display: inline-block;
+}
+
 .container {
   font-size: 120px;
 }
